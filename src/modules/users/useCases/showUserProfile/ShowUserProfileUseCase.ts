@@ -10,6 +10,11 @@ class ShowUserProfileUseCase {
 
   execute({ user_id }: IRequest): User {
     // Complete aqui
+    const userProfile = this.usersRepository.findById(user_id);
+    if (!userProfile) {
+      throw new Error("User id not found!");
+    }
+    return userProfile;
   }
 }
 

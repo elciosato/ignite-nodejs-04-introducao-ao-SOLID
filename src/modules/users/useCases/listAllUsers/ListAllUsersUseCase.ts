@@ -10,7 +10,15 @@ class ListAllUsersUseCase {
 
   execute({ user_id }: IRequest): User[] {
     // Complete aqui
+    const userAdmin = this.usersRepository.findById(user_id);
+    if (!userAdmin) {
+      throw new Error("User id not found!");
+    }
+    if (!userAdmin.admin) {
+      throw new Error("User id is not allowed to list all users!");
+    }
+    return this.usersRepository.list();
   }
 }
 
-export { ListAllUsersUseCase };
+export { ListAllUsersUseCase, IRequest };
